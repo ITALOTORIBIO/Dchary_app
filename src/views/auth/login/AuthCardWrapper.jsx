@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 
 // material-ui
 import { Box } from '@mui/material';
@@ -14,7 +15,8 @@ const AuthCardWrapper = ({ children, ...other }) => (
             '& > *': {
                 flexGrow: 1,
                 flexBasis: '50%'
-            }
+            },
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
         }}
         content={false}
         {...other}

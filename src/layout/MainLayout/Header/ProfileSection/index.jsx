@@ -117,7 +117,7 @@ const ProfileSection = () => {
                 label={
                     <Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid item>
-                            <Typography>¡Bienvenido {name}!</Typography>
+                            <Typography>¡Bienvenido Italo!</Typography>
                         </Grid>
                         <Grid item>
                             <IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />

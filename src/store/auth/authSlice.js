@@ -6,7 +6,7 @@ export const authSlice = createSlice({
         status: 'not-authenticated', // 'not-authenticated', 'checking', 'authenticated'
         username: null,
         name: null,
-        token: null,
+        rol: null,
         message: null
     },
     reducers: {
@@ -14,23 +14,23 @@ export const authSlice = createSlice({
             state.status = 'authenticated';
             state.username = payload.username;
             state.name = payload.name;
-            state.token = payload.token;
+            state.rol = payload.rol;
             state.message = null;
         },
         logout: (state, { payload }) => {
             state.status = 'not-authenticated';
             state.username = null;
             state.name = null;
-            state.token = null;
+            state.rol = null;
             state.message = payload.message;
         },
-        loadUser: (state) => {
-            state.status = localStorage.getItem('token') ? 'authenticated' : 'not-authenticated';
-            state.username = localStorage.getItem('username') || null;
-            state.name = localStorage.getItem('name') || null;
-            state.token = localStorage.getItem('token') || null;
-            state.message = null;
-        },
+        // loadUser: (state) => {
+        //     state.status = localStorage.getItem('rol') ? 'authenticated' : 'not-authenticated';
+        //     state.username = localStorage.getItem('username') || null;
+        //     state.name = localStorage.getItem('name') || null;
+        //     state.rol = localStorage.getItem('rol') || null;
+        //     state.message = null;
+        // },
         validateCredentials: (state) => {
             state.status = 'checking';
         }
@@ -38,4 +38,4 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout, loadUser, validateCredentials } = authSlice.actions;
+export const { login, logout, validateCredentials } = authSlice.actions;

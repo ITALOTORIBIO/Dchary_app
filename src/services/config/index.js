@@ -3,8 +3,8 @@ const hostname = () => {
     return;
 };
 
-export const HOST_API = hostname() || '144.91.71.204';
-export const PORT_API = 3000;
+export const HOST_API = hostname() || '127.0.0.1';
+export const PORT_API = 8000;
 
 export const DASHBOARD_URL_API = 'dashboard';
 export const USER_URL_API = 'usuario';

@@ -43,7 +43,7 @@
         "yup": "^0.32.11"
     },
     "scripts": {
-        "start": "set PORT=3001 && react-scripts start",
+        "start": "set PORT=3001 && react-scripts --openssl-legacy-provider start",
         "build": "react-scripts build && javascript-obfuscator plain --compact true --debug-protection true --control-flow-flattening true --control-flow-flattening-threshold 1 --dead-code-injection true --dead-code-injection-threshold 1 --debug-protection-interval 1 --disable-console-output true --identifier-names-generator hexadecimal --log false --numbers-to-expressions true --rename-globals false --string-array-rotate true --self-defending true --simplify true --string-array true --string-array-encoding rc4 --string-array-threshold 1 --transform-object-keys true --unicode-escape-sequence false",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

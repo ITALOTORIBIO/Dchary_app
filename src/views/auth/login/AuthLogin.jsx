@@ -127,12 +127,13 @@ const FirebaseLogin = () => {
                             {message}
                         </Alert>
                     )}
-                    <Box sx={{ mt: 2 }}>
+                    <Box sx={{ ml: 13, mt: 2, justifyContent: 'center', alignItems: 'center' }}>
                         <AnimateButton>
                             <Button
+                                justifyContent="center"
+                                alignItems="center"
                                 disableElevation
                                 disabled={isAuthenticated}
-                                fullWidth
                                 size="large"
                                 type="submit"
                                 variant="contained"

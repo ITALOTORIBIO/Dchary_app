@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // APIs para vista de Anexo
 export const callToAnnexList = async () => {
-    const URL = `${BASE_PATH}/${ANNEX_URL_API}/lista`;
+    const URL = `http://localhost:3001/auth/login/usuario`;
 
     return await axios({
         method: 'get',
