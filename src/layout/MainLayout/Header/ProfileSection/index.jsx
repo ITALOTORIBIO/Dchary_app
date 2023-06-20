@@ -19,14 +19,13 @@ import {
     Popper,
     Typography
 } from '@mui/material';
-
+import FaceIcon from '@mui/icons-material/Face';
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
-import User1 from 'assets/images/users/user-round.svg';
 
 // assets
 import { IconLogout, IconSettings } from '@tabler/icons';
@@ -100,24 +99,11 @@ const ProfileSection = () => {
                         lineHeight: 0
                     }
                 }}
-                icon={
-                    <Avatar
-                        src={User1}
-                        sx={{
-                            ...theme.typography.mediumAvatar,
-                            margin: '8px 0 8px 8px !important',
-                            cursor: 'pointer'
-                        }}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        color="inherit"
-                    />
-                }
+                icon={<FaceIcon />}
                 label={
                     <Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid item>
-                            <Typography>¡Bienvenido Italo!</Typography>
+                            <Typography>¡Bienvenido {name}!</Typography>
                         </Grid>
                         <Grid item>
                             <IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />

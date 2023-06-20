@@ -11,7 +11,7 @@ import PreviewImportExcelBlackListModal from './preview-import-excel-blacklist-m
 import { useState, useEffect } from 'react';
 import { filterBlackList, getBlackList } from 'store/filters';
 import { callToBlackList } from 'services/apis';
-import { setTipo, setEstado, setNumero, setDescripcion } from 'store/black-list';
+import { setNombre, setCorreo, setRol, setUsername, setPassword } from 'store/black-list';
 import { useCallback } from 'react';
 
 // react icons
@@ -86,10 +86,11 @@ const BlackList = () => {
     const handleShowAddBlackListModal = () => dispatch(modalOpenBlackList(!open));
 
     useEffect(() => {
-        dispatch(setTipo(''));
-        dispatch(setEstado(false));
-        dispatch(setNumero(''));
-        dispatch(setDescripcion(''));
+        dispatch(setNombre(''));
+        dispatch(setCorreo(''));
+        dispatch(setRol(''));
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
     }, [open]);
 
     const handleChangePhoneNumber = (event) => {
@@ -220,7 +221,7 @@ const BlackList = () => {
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12}>
                                 <Grid container>
-                                    <Typography variant="h4">Lista Negra</Typography>
+                                    <Typography variant="h4">Lista de Usarios</Typography>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
@@ -236,10 +237,10 @@ const BlackList = () => {
                                             endIcon={<Add />}
                                             onClick={handleShowAddBlackListModal}
                                         >
-                                            Añadir Número
+                                            Añadir Usuario
                                         </Button>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Grid container spacing={gridSpacing}>
                                             <Grid item>
                                                 <Button
@@ -365,7 +366,7 @@ const BlackList = () => {
                                                 </StyledMenu>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
@@ -376,7 +377,7 @@ const BlackList = () => {
                                                 <Box width={385} maxWidth="100%">
                                                     <TextField
                                                         fullWidth
-                                                        label="Número"
+                                                        label="Nombre de Usuario"
                                                         name="phone-number"
                                                         value={numberPhone}
                                                         type="search"
@@ -385,7 +386,7 @@ const BlackList = () => {
                                                     />
                                                 </Box>
                                             </Grid>
-                                            <Grid item>
+                                            {/* <Grid item>
                                                 <Box width={385} maxWidth="100%">
                                                     <TextField
                                                         fullWidth
@@ -422,7 +423,7 @@ const BlackList = () => {
                                                         ))}
                                                     </TextField>
                                                 </Box>
-                                            </Grid>
+                                            </Grid> */}
                                         </Grid>
                                     </Grid>
                                     <Grid item>

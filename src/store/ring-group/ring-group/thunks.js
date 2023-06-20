@@ -1,14 +1,26 @@
-import * as RingGroup from './ringGroupSlice';
+import * as Producto from './ringGroupSlice';
 
-export const setRingGroup = (ringGroup) => {
-    return (dispatch) => dispatch(RingGroup.SET_RING_GROUP(ringGroup));
+export const setProducto = (producto) => {
+    return (dispatch) => dispatch(Producto.SET_PRODUCTO(producto));
 };
-export const setNombreGrupo = (nombreGrupo) => {
-    return (dispatch) => dispatch(RingGroup.SET_NOMBRE_GRUPO(nombreGrupo));
+export const setNombreProducto = (nombreProducto) => {
+    return (dispatch) => dispatch(Producto.SET_NOMBRE_PRODUCTO(nombreProducto));
 };
-export const setNumeroGrupo = (numeroGrupo) => {
-    return (dispatch) => dispatch(RingGroup.SET_NUMERO_GRUPO(numeroGrupo));
+export const setPrecioProducto = (precioProducto) => {
+    return (dispatch) => dispatch(Producto.SET_PRECIO_PRODUCTO(precioProducto));
 };
-export const setSelectAnexo = (selectAnexo) => {
-    return (dispatch) => dispatch(RingGroup.SET_SELECT_ANEXO(selectAnexo));
+export const setCantidadProducto = (cantidadProducto) => {
+    return (dispatch) => dispatch(Producto.SET_CANTIDAD_PRODUCTO(cantidadProducto));
+};
+export const setCantidadIngProducto = (cantidadIngProducto) => {
+    return (dispatch) => dispatch(Producto.SET_CANTIDAD_ING_PRODUCTO(cantidadIngProducto));
+};
+export const setCantidadSalProducto = (cantidadSalProducto) => {
+    return (dispatch) => dispatch(Producto.SET_CANTIDAD_SAL_PRODUCTO(cantidadSalProducto));
+};
+export const setCantidadMinProducto = (cantidadMinProducto) => {
+    return (dispatch) => dispatch(Producto.SET_CANTIDAD_MIN_PRODUCTO(cantidadMinProducto));
+};
+export const setUnidadProducto = (unidadProducto) => {
+    return (dispatch) => dispatch(Producto.SET_UNIDAD_PRODUCTO(unidadProducto));
 };

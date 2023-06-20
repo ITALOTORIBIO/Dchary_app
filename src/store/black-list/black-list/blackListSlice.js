@@ -3,31 +3,36 @@ import { createSlice } from '@reduxjs/toolkit';
 export const blackListSlice = createSlice({
     name: 'black-list',
     initialState: {
-        tipo: '',
-        numero: '',
-        descripcion: '',
-        estado: false
+        nombre: '',
+        correo: '',
+        rol: '',
+        username: '',
+        password: ''
     },
     reducers: {
         SET_BLACK_LIST: (state, { payload }) => {
-            state.tipo = payload.tipo;
-            state.numero = payload.numero;
-            state.descripcion = payload.descripcion;
-            state.estado = payload.estado;
+            state.nombre = payload.tipo;
+            state.correo = payload.correo;
+            state.rol = payload.rol;
+            state.username = payload.username;
+            state.password = payload.password;
         },
-        SET_TIPO: (state, { payload }) => {
-            state.tipo = payload;
+        SET_NOMBRE: (state, { payload }) => {
+            state.nombre = payload;
         },
-        SET_NUMERO: (state, { payload }) => {
-            state.numero = payload;
+        SET_CORREO: (state, { payload }) => {
+            state.correo = payload;
         },
-        SET_DESCRIPCION: (state, { payload }) => {
-            state.descripcion = payload;
+        SET_ROL: (state, { payload }) => {
+            state.rol = payload;
         },
-        SET_ESTADO: (state, { payload }) => {
-            state.estado = payload;
+        SET_USERNAME: (state, { payload }) => {
+            state.username = payload;
+        },
+        SET_PASSWORD: (state, { payload }) => {
+            state.password = payload;
         }
     }
 });
 
-export const { SET_BLACK_LIST, SET_TIPO, SET_NUMERO, SET_DESCRIPCION, SET_ESTADO } = blackListSlice.actions;
+export const { SET_BLACK_LIST, SET_NOMBRE, SET_CORREO, SET_ROL, SET_USERNAME, SET_PASSWORD } = blackListSlice.actions;

@@ -28,7 +28,7 @@ import { blackListSlice } from './black-list';
 import { ringGroupSlice } from './ring-group';
 import { configurationQueueSlice, otherOptionsQueueSlice, tabsQueueSlice, monitoringQueueSlice } from './queue';
 import { conferenciasSlice } from './conferencias';
-import { filterAnnexSipSlice, filterBlackListSlice, filterRingGroupSlice } from './filters';
+import { filterAnnexSipSlice, filterBlackListSlice, filterConferencesSlice, filterRingGroupSlice } from './filters';
 
 export const store = configureStore({
     reducer: {
@@ -66,6 +66,7 @@ export const store = configureStore({
         conferencias: conferenciasSlice.reducer,
         filterAnnexSip: filterAnnexSipSlice.reducer,
         filterBlackList: filterBlackListSlice.reducer,
-        filterRingGroup: filterRingGroupSlice.reducer
+        filterRingGroup: filterRingGroupSlice.reducer,
+        filterConferences: filterConferencesSlice.reducer
     }
 });

@@ -16,9 +16,27 @@ import {
     Stack,
     Typography
 } from '@mui/material';
-
 // assets
-import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon icon-tabler icon-tabler-square-rounded-x-filled"
+    width="44"
+    height="44"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="#2c3e50"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+>
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path
+        d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z"
+        fill="currentColor"
+        stroke-width="0"
+    />
+</svg>;
+import { IconBrandTelegram, IconSquareX, IconMailbox, IconAlertTriangle, IconPhoto } from '@tabler/icons';
 import User1 from 'assets/images/users/user-round.svg';
 
 // styles
@@ -74,7 +92,7 @@ const NotificationList = () => {
                 }
             }}
         >
-            <ListItemWrapper>
+            {/* <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>
                         <Avatar alt="John Doe" src={User1} />
@@ -105,44 +123,44 @@ const NotificationList = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </ListItemWrapper>
+            </ListItemWrapper> */}
             <Divider />
             <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>
                         <Avatar
                             sx={{
-                                color: theme.palette.success.dark,
-                                backgroundColor: theme.palette.success.light,
+                                color: theme.palette.warning.dark,
+                                backgroundColor: theme.palette.warning.light,
                                 border: 'none',
-                                borderColor: theme.palette.success.main
+                                borderColor: theme.palette.warning.main
                             }}
                         >
-                            <IconBuildingStore stroke={1.5} size="1.3rem" />
+                            <IconAlertTriangle stroke={1.5} size="1.3rem" />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">Store Verification Done</Typography>} />
+                    <ListItemText primary={<Typography variant="subtitle1">Producto falta abastecer</Typography>} />
                     <ListItemSecondaryAction>
-                        <Grid container justifyContent="flex-end">
+                        {/* <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
                                 <Typography variant="caption" display="block" gutterBottom>
                                     2 min ago
                                 </Typography>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
                     <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography variant="subtitle2">We have successfully received your request.</Typography>
+                        <Typography variant="subtitle2">Existen items en tu inventario que están por terminarse</Typography>
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Grid container>
                             <Grid item>
                                 <Chip label="Unread" sx={chipErrorSX} />
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid>} */}
                 </Grid>
             </ListItemWrapper>
             <Divider />
@@ -151,31 +169,31 @@ const NotificationList = () => {
                     <ListItemAvatar>
                         <Avatar
                             sx={{
-                                color: theme.palette.primary.dark,
-                                backgroundColor: theme.palette.primary.light,
+                                color: theme.palette.error.dark,
+                                backgroundColor: theme.palette.error.light,
                                 border: 'none',
-                                borderColor: theme.palette.primary.main
+                                borderColor: theme.palette.error.main
                             }}
                         >
-                            <IconMailbox stroke={1.5} size="1.3rem" />
+                            <IconSquareX stroke={1.5} size="1.3rem" />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">Check Your Mail.</Typography>} />
+                    <ListItemText primary={<Typography variant="subtitle1">Producto desabastecido</Typography>} />
                     <ListItemSecondaryAction>
-                        <Grid container justifyContent="flex-end">
+                        {/* <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Typography variant="caption" display="block" gutterBottom>
                                     2 min ago
                                 </Typography>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
                     <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography variant="subtitle2">All done! Now check your inbox as you&apos;re in for a sweet treat!</Typography>
+                        <Typography variant="subtitle2">Realizar las compras necesarias para abastecer el inventario</Typography>
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Grid container>
                             <Grid item>
                                 <Button variant="contained" disableElevation endIcon={<IconBrandTelegram stroke={1.5} size="1.3rem" />}>
@@ -183,59 +201,10 @@ const NotificationList = () => {
                                 </Button>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </ListItemWrapper>
             <Divider />
-            <ListItemWrapper>
-                <ListItem alignItems="center">
-                    <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
-                    </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
-                    <ListItemSecondaryAction>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item xs={12}>
-                                <Typography variant="caption" display="block" gutterBottom>
-                                    2 min ago
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography component="span" variant="subtitle2">
-                            Uploaded two file on &nbsp;
-                            <Typography component="span" variant="h6">
-                                21 Jan 2020
-                            </Typography>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <Card
-                                    sx={{
-                                        backgroundColor: theme.palette.secondary.light
-                                    }}
-                                >
-                                    <CardContent>
-                                        <Grid container direction="column">
-                                            <Grid item xs={12}>
-                                                <Stack direction="row" spacing={2}>
-                                                    <IconPhoto stroke={1.5} size="1.3rem" />
-                                                    <Typography variant="subtitle1">demo.jpg</Typography>
-                                                </Stack>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </ListItemWrapper>
         </List>
     );
 };

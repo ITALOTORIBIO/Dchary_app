@@ -7,15 +7,17 @@ import { modalOpenRingGroupEdit, backdropOpenRingGroupEdit, snackbarOpenRingGrou
 import { callToRingGroupList, callToEditRingGroupItem } from 'services/apis';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { setNombreGrupo, setNumeroGrupo, setSelectAnexo } from 'store/ring-group';
+import { setNombreProducto, setCantidadProducto, setCantidadMinProducto, setPrecioProducto, setUnidadProducto } from 'store/ring-group';
 import { useEffect } from 'react';
 import { getRingGroup } from 'store/filters';
 import TabsRingGroup from '../tabs-ring-group/TabsRingGroup';
 
 const schema = Yup.object().shape({
-    nombreGrupo: Yup.string().required('Nombre de grupo obligatorio'),
-    numeroGrupo: Yup.string().required('Número de grupo obligatorio'),
-    selectAnexo: Yup.string().required('Anexos requeridos')
+    nombreProducto: Yup.string().required('Nombre de producto obligatorio'),
+    precioProducto: Yup.string().required('Precio del producto obligatorio'),
+    cantidadProducto: Yup.string().required('Cantidad de producto obligatoria'),
+    cantidadMinProducto: Yup.string().required('Cantidad Mínima es requerida'),
+    unidadProducto: Yup.string().required('Unidad de producto obligatoria')
 });
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -31,19 +33,25 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
     });
     const dispatch = useDispatch();
 
-    const { nombreGrupo, numeroGrupo, selectAnexo } = useSelector((state) => state.ringGroup);
+    const { nombreProducto, precioProducto, cantidadProducto, cantidadMinProducto, unidadProducto } = useSelector(
+        (state) => state.ringGroup
+    );
 
     const initialValues = {
-        nombreGrupo: resultItemRingGroup.name_group,
-        numeroGrupo: resultItemRingGroup.num_group,
-        selectAnexo: resultItemRingGroup.annex
+        nombreProducto: resultItemRingGroup.nom_prod,
+        precioProducto: resultItemRingGroup.precio_prod,
+        cantidadProducto: resultItemRingGroup.cant_prod,
+        cantidadMinProducto: resultItemRingGroup.cant_min_prod,
+        unidadProducto: resultItemRingGroup.unidad_prod
     };
 
     useEffect(() => {
-        dispatch(setNombreGrupo(initialValues.nombreGrupo));
-        dispatch(setNumeroGrupo(initialValues.numeroGrupo));
-        dispatch(setSelectAnexo(initialValues.selectAnexo));
-    }, [initialValues.numeroGrupo, modalOpenRingGroupEdit]);
+        dispatch(setNombreProducto(initialValues.nombreProducto));
+        dispatch(setCantidadMinProducto(initialValues.cantidadMinProducto));
+        dispatch(setCantidadProducto(initialValues.cantidadProducto));
+        dispatch(setPrecioProducto(initialValues.precioProducto));
+        dispatch(setUnidadProducto(initialValues.unidadProducto));
+    }, [initialValues.nombreProducto, modalOpenRingGroupEdit]);
 
     const getDataRingGroup = async () => {
         const result = await callToRingGroupList();
@@ -52,9 +60,11 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
     };
 
     const handleClose = () => {
-        dispatch(setNombreGrupo(initialValues.nombreGrupo));
-        dispatch(setNumeroGrupo(initialValues.numeroGrupo));
-        dispatch(setSelectAnexo(initialValues.selectAnexo));
+        dispatch(setNombreProducto(initialValues.nombreProducto));
+        dispatch(setCantidadMinProducto(initialValues.cantidadMinProducto));
+        dispatch(setCantidadProducto(initialValues.cantidadProducto));
+        dispatch(setPrecioProducto(initialValues.precioProducto));
+        dispatch(setUnidadProducto(initialValues.unidadProducto));
     };
 
     const handleCloseModal = () => {
@@ -68,15 +78,15 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
 
     const onSubmit = async () => {
         handleOpenBackdropEdit();
-        const cant_annex = selectAnexo.split(',').length;
         const data = {
-            name_group: nombreGrupo,
-            num_group: numeroGrupo,
-            annex: selectAnexo,
-            cant_annex: cant_annex
+            nom_prod: nombreProducto,
+            precio_prod: precioProducto,
+            cant_prod: cantidadProducto,
+            cant_min_prod: cantidadMinProducto,
+            unidad_prod: unidadProducto
         };
         console.log(data);
-        const result = await callToEditRingGroupItem(data.name_group, data);
+        const result = await callToEditRingGroupItem(data.nom_prod, data);
         if (result.isCreated) {
             getDataRingGroup();
             handleCloseBackdropEdit();
@@ -86,9 +96,9 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
             if (result.status) {
                 setSnackbar({ message: result.message, severity: 'error', color: 'error' });
             } else {
-                setSnackbar({ message: result.message.name, severity: 'error', color: 'error' });
+                setSnackbar({ message: result.message, severity: 'error', color: 'error' });
             }
-            console.log(result.message.name);
+            console.log(result.message);
             handleCloseBackdropEdit();
         }
         handleOpenSnackbarEdit();
@@ -123,7 +133,7 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
                                 <TabContext value={value}>
                                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                         <TabList onChange={handleChangeTab}>
-                                            <Tab label="Editar Número" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
+                                            <Tab label="Editar Producto" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
                                         </TabList>
                                     </Box>
                                     <TabPanel value="1">
@@ -156,7 +166,7 @@ const EditRingGroupModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit,
                                 </Box>
                                 <Box marginRight="2.5rem" marginBottom="1rem" gap={4}>
                                     <Button variant="contained" disabled={!isValid} type="submit" sx={{ textTransform: 'uppercase' }}>
-                                        Editar Número
+                                        Editar Producto
                                     </Button>
                                 </Box>
                             </DialogActions>

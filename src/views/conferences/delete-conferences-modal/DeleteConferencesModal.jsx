@@ -11,7 +11,7 @@ const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const DeleteRingGroupModal = ({
+const DeleteConferencesModal = ({
     openModalRingGroupDelete,
     openBackdropRingGroupDelete,
     openSnackbarRingGroupDelete,
@@ -123,11 +123,11 @@ const DeleteRingGroupModal = ({
     );
 };
 
-DeleteRingGroupModal.propTypes = {
+DeleteConferencesModal.propTypes = {
     openModalRingGroupDelete: PropTypes.bool,
     openBackdropRingGroupDelete: PropTypes.bool,
     openSnackbarRingGroupDelete: PropTypes.bool,
     resultItemRingGroup: PropTypes.object
 };
 
-export default DeleteRingGroupModal;
+export default DeleteConferencesModal;

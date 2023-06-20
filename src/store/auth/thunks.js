@@ -12,11 +12,11 @@ export const checkingAuthentication = (username, password) => {
     };
 };
 
-// export const checkingUserLogin = () => {
-//     return async (dispatch) => {
-//         dispatch(loadUser());
-//     };
-// };
+export const checkingUserLogin = () => {
+    return async (dispatch) => {
+        dispatch(loadUser());
+    };
+};
 
 export const validateUserLogout = (token) => {
     return async (dispatch) => {

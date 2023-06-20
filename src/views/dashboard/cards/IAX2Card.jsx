@@ -12,7 +12,7 @@ import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 import { Icon } from '@iconify/react';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.dark,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -25,7 +25,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
         position: 'absolute',
         width: 210,
         height: 210,
-        background: theme.palette.secondary[800],
+        background: theme.palette.primary[800],
         borderRadius: '50%',
         zIndex: 1,
         top: -85,
@@ -41,7 +41,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
         zIndex: 1,
         width: 210,
         height: 210,
-        background: theme.palette.secondary[800],
+        background: theme.palette.primary[800],
         borderRadius: '50%',
         top: -125,
         right: -15,
@@ -72,12 +72,12 @@ const IAX2Card = ({ isLoading }) => {
                                             sx={{
                                                 ...theme.typography.commonAvatar,
                                                 ...theme.typography.largeAvatar,
-                                                backgroundColor: theme.palette.secondary[800],
+                                                backgroundColor: theme.palette.primary[800],
                                                 color: '#fff',
                                                 mt: 1
                                             }}
                                         >
-                                            <Icon icon="fa:fax" fontSize="2.4rem" />
+                                            <Icon icon="icon-park-solid:up-two" fontSize="2.4rem" />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -86,7 +86,7 @@ const IAX2Card = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            0 / 1
+                                            450
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -98,7 +98,7 @@ const IAX2Card = ({ isLoading }) => {
                                         fontWeight: 500
                                     }}
                                 >
-                                    IAX2 Devices
+                                    Cantidad de Ingreso de Productos
                                 </Typography>
                             </Grid>
                         </Grid>

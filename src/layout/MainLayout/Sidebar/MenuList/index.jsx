@@ -8,6 +8,13 @@ import menuItem from 'utils/menu-items';
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuList = () => {
+    // const username = localStorage.getItem('username');
+
+    // if (username === 'itoribios') {
+    //     console.log(menuItem);
+    // } else {
+    //     console.log(menuItem);
+    // }
     const navItems = menuItem.items.map((item) => {
         switch (item.type) {
             case 'group':

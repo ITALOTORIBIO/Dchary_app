@@ -8,13 +8,15 @@ import TabsBlackList from '../tabs-black-list/TabsBlackList';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { getBlackList } from 'store/filters';
-import { setTipo, setEstado, setNumero, setDescripcion } from 'store/black-list';
+import { setNombre, setCorreo, setRol, setUsername, setPassword } from 'store/black-list';
 import { callToBlackList, callToBlackListItem } from 'services/apis';
 
 const schema = Yup.object().shape({
-    tipo: Yup.string().required('Tipo de llamada es obligatorio'),
-    numero: Yup.string().length(9, 'Número telefónico debe tener 9 dígitos').required('Número telefónico es obligatorio'),
-    descripcion: Yup.string()
+    rol: Yup.string().required('Tipo de rol es obligatorio'),
+    nombre: Yup.string().required('Nombre es obligatorio'),
+    correo: Yup.string().required('Correo electrónico es obligatorio'),
+    username: Yup.string().required('Nombre de usuario es obligatorio'),
+    password: Yup.string().required('Contraseña es obligatoria')
 });
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -28,7 +30,7 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
         severity: 'success',
         color: 'success'
     });
-    const { tipo, numero, descripcion, estado } = useSelector((state) => state.blackList);
+    const { rol, nombre, correo, username, password } = useSelector((state) => state.blackList);
     const dispatch = useDispatch();
 
     const handleChangeTab = (event, newValue) => setValue(newValue);
@@ -36,10 +38,11 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
     const handleCloseBackdrop = () => dispatch(backdropOpenBlackList(false));
 
     const initialValues = {
-        tipo: tipo,
-        numero: numero,
-        descripcion: descripcion,
-        estado: estado
+        nombre: nombre,
+        correo: correo,
+        rol: rol,
+        username: username,
+        password: password
     };
 
     const getDataListBlackList = async () => {
@@ -49,10 +52,11 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
     };
 
     const handleClose = () => {
-        dispatch(setTipo(''));
-        dispatch(setEstado(false));
-        dispatch(setNumero(''));
-        dispatch(setDescripcion(''));
+        dispatch(setNombre(''));
+        dispatch(setCorreo(''));
+        dispatch(setRol(''));
+        dispatch(setUsername(''));
+        dispatch(setPassword(''));
         dispatch(modalOpenBlackList(!open));
         setValue('1');
     };
@@ -60,10 +64,11 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
     const onSubmit = async () => {
         handleOpenBackdrop();
         const data = {
-            type_call: tipo,
-            num_tlf: numero,
-            description: descripcion,
-            status: estado
+            nombre: nombre,
+            correo: correo,
+            rol: rol,
+            username: username,
+            password: password
         };
         const result = await callToBlackListItem(data);
         if (result.isCreated) {
@@ -113,7 +118,7 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
                                 <TabContext value={value}>
                                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                         <TabList onChange={handleChangeTab}>
-                                            <Tab label="Nuevo Número" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
+                                            <Tab label="Nuevo Usuario" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
                                         </TabList>
                                     </Box>
                                     <TabPanel value="1">
@@ -143,7 +148,7 @@ const AddBlackListModal = ({ open, openBackdropBlackList, openSnackbarBlackList 
                                 </Box>
                                 <Box marginRight="2.5rem" marginBottom="1rem" gap={4}>
                                     <Button variant="contained" type="submit" disabled={!isValid} sx={{ textTransform: 'uppercase' }}>
-                                        Agregar Número
+                                        Agregar Usuario
                                     </Button>
                                 </Box>
                             </DialogActions>

@@ -1,33 +1,28 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // others
 import { Icon } from '@iconify/react';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
-    '&>div': {
-        position: 'relative',
-        zIndex: 5
-    },
     '&:after': {
         content: '""',
         position: 'absolute',
         width: 210,
         height: 210,
-        background: theme.palette.primary[800],
+        background: theme.palette.secondary[800],
         borderRadius: '50%',
-        zIndex: 1,
         top: -85,
         right: -95,
         [theme.breakpoints.down('sm')]: {
@@ -38,10 +33,9 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     '&:before': {
         content: '""',
         position: 'absolute',
-        zIndex: 1,
         width: 210,
         height: 210,
-        background: theme.palette.primary[800],
+        background: theme.palette.secondary[800],
         borderRadius: '50%',
         top: -125,
         right: -15,
@@ -59,7 +53,7 @@ const ActiveCallsCard = ({ isLoading }) => {
     return (
         <>
             {isLoading ? (
-                <SkeletonTotalOrderCard />
+                <SkeletonEarningCard />
             ) : (
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 2.25 }}>
@@ -72,12 +66,12 @@ const ActiveCallsCard = ({ isLoading }) => {
                                             sx={{
                                                 ...theme.typography.commonAvatar,
                                                 ...theme.typography.largeAvatar,
-                                                backgroundColor: theme.palette.primary[800],
+                                                backgroundColor: theme.palette.secondary[800],
                                                 color: '#fff',
                                                 mt: 1
                                             }}
                                         >
-                                            <Icon icon="eva:phone-fill" fontSize="2.4rem" />
+                                            <Icon icon="icon-park-solid:down-two" fontSize="2.4rem" />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -86,7 +80,7 @@ const ActiveCallsCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {0}
+                                            523.00
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -98,7 +92,7 @@ const ActiveCallsCard = ({ isLoading }) => {
                                         fontWeight: 500
                                     }}
                                 >
-                                    ACTIVE Calls
+                                    Valor de Salida de Productos (S/.)
                                 </Typography>
                             </Grid>
                         </Grid>

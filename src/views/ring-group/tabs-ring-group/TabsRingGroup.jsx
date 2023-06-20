@@ -3,92 +3,95 @@ import { Autocomplete, Box, Chip, Grid, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { gridSpacing } from 'store/constant';
-import { setNombreGrupo, setNumeroGrupo, setSelectAnexo } from 'store/ring-group';
+import { setNombreProducto, setCantidadMinProducto, setCantidadProducto, setPrecioProducto, setUnidadProducto } from 'store/ring-group';
 
 // api service
-import { callToAnnexList } from 'services/apis';
+// import { callToAnnexList } from 'services/apis';
 
-const TabsRingGroup = ({ handleBlur, handleChange, touched, values, errors, statusClose, setFieldValue }) => {
-    const [valueAnnex, setValueAnnex] = useState([]);
-    let annexListTemporal = [];
-    let annexListNames = [];
-    const [annexList, setAnnexList] = useState([]);
+const TabsRingGroup = ({ handleBlur, handleChange, touched, values, errors }) => {
+    // const [valueAnnex, setValueAnnex] = useState([]);
+    // let annexListTemporal = [];
+    // let annexListNames = [];
+    // const [annexList, setAnnexList] = useState([]);
     const dispatch = useDispatch();
 
-    const handleChangeNameGroup = (event) => dispatch(setNombreGrupo(event.target.value));
-    const handleChangeNumberGroup = (event) => dispatch(setNumeroGrupo(event.target.value));
+    const handleChangeNombreProducto = (event) => dispatch(setNombreProducto(event.target.value));
+    const handleChangePrecioProducto = (event) => dispatch(setPrecioProducto(event.target.value));
+    const handleChangeCantidadProducto = (event) => dispatch(setCantidadProducto(event.target.value));
+    const handleChangeCantidadMinProducto = (event) => dispatch(setCantidadMinProducto(event.target.value));
+    const handleChangeUnidadProducto = (event) => dispatch(setUnidadProducto(event.target.value));
 
-    const handleChangeSelectedAnnexAdd = (action, value, name) => {
-        if (action === 'add') {
-            value.map((row) => {
-                annexListNames.push(row.name);
-            });
-            setFieldValue('selectAnexo', annexListNames.join());
-            dispatch(setSelectAnexo(annexListNames.join()));
-        } else {
-            let objectsAnnex = value.filter(function (item) {
-                return item.name !== name;
-            });
-            objectsAnnex.map((row) => {
-                annexListNames.push(row.name);
-            });
-            setFieldValue('selectAnexo', annexListNames.join());
-            dispatch(setSelectAnexo(annexListNames.join()));
-        }
-    };
+    // const handleChangeSelectedAnnexAdd = (action, value, name) => {
+    //     if (action === 'add') {
+    //         value.map((row) => {
+    //             annexListNames.push(row.name);
+    //         });
+    //         setFieldValue('selectAnexo', annexListNames.join());
+    //         dispatch(setSelectAnexo(annexListNames.join()));
+    //     } else {
+    //         let objectsAnnex = value.filter(function (item) {
+    //             return item.name !== name;
+    //         });
+    //         objectsAnnex.map((row) => {
+    //             annexListNames.push(row.name);
+    //         });
+    //         setFieldValue('selectAnexo', annexListNames.join());
+    //         dispatch(setSelectAnexo(annexListNames.join()));
+    //     }
+    // };
 
-    const handleChangeSelectedAnnexEdit = (action, value, variable, deleted) => {
-        if (action === 'add') {
-            if (value.split(',').includes(deleted)) {
-                onDelete(deleted);
-                let objectsAnnex = value.split(',').filter(function (item) {
-                    return item !== deleted;
-                });
-                objectsAnnex.map((row) => {
-                    annexListNames.push(row);
-                });
-                setFieldValue('selectAnexo', annexListNames.join());
-                dispatch(setSelectAnexo(annexListNames.join()));
-            } else {
-                annexListNames.push(variable.name);
-                let x = value + ',' + annexListNames.join();
-                setFieldValue('selectAnexo', x);
-                dispatch(setSelectAnexo(x));
-            }
-        } else if (action === 'delete') {
-            let objectsAnnex = value.filter(function (item) {
-                return item !== variable;
-            });
-            objectsAnnex.map((row) => {
-                annexListNames.push(row);
-            });
-            setFieldValue('selectAnexo', annexListNames.join());
-            dispatch(setSelectAnexo(annexListNames.join()));
-        } else {
-            setFieldValue('selectAnexo', '');
-            dispatch(setSelectAnexo(''));
-        }
-    };
+    // const handleChangeSelectedAnnexEdit = (action, value, variable, deleted) => {
+    //     if (action === 'add') {
+    //         if (value.split(',').includes(deleted)) {
+    //             onDelete(deleted);
+    //             let objectsAnnex = value.split(',').filter(function (item) {
+    //                 return item !== deleted;
+    //             });
+    //             objectsAnnex.map((row) => {
+    //                 annexListNames.push(row);
+    //             });
+    //             setFieldValue('selectAnexo', annexListNames.join());
+    //             dispatch(setSelectAnexo(annexListNames.join()));
+    //         } else {
+    //             annexListNames.push(variable.name);
+    //             let x = value + ',' + annexListNames.join();
+    //             setFieldValue('selectAnexo', x);
+    //             dispatch(setSelectAnexo(x));
+    //         }
+    //     } else if (action === 'delete') {
+    //         let objectsAnnex = value.filter(function (item) {
+    //             return item !== variable;
+    //         });
+    //         objectsAnnex.map((row) => {
+    //             annexListNames.push(row);
+    //         });
+    //         setFieldValue('selectAnexo', annexListNames.join());
+    //         dispatch(setSelectAnexo(annexListNames.join()));
+    //     } else {
+    //         setFieldValue('selectAnexo', '');
+    //         dispatch(setSelectAnexo(''));
+    //     }
+    // };
 
-    useEffect(() => {
-        getDataListAnnex();
-    }, []);
+    // useEffect(() => {
+    //     getDataListAnnex();
+    // }, []);
 
-    const onDelete = (name) => {
-        setValueAnnex((value) => value.filter((v) => v.name !== name));
-    };
+    // const onDelete = (name) => {
+    //     setValueAnnex((value) => value.filter((v) => v.name !== name));
+    // };
 
-    const getDataListAnnex = async () => {
-        const result = await callToAnnexList();
-        result.data.map((row) => {
-            annexListTemporal.push(row);
-        });
-        setAnnexList(annexListTemporal);
-    };
+    // const getDataListAnnex = async () => {
+    //     const result = await callToAnnexList();
+    //     result.data.map((row) => {
+    //         annexListTemporal.push(row);
+    //     });
+    //     setAnnexList(annexListTemporal);
+    // };
 
-    useEffect(() => {
-        setValueAnnex([]);
-    }, [statusClose]);
+    // useEffect(() => {
+    //     setValueAnnex([]);
+    // }, [statusClose]);
 
     return (
         <Grid container>
@@ -98,46 +101,112 @@ const TabsRingGroup = ({ handleBlur, handleChange, touched, values, errors, stat
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12} md={6}>
                                 <TextField
-                                    id="nombreGrupo"
+                                    id="nombreProducto"
                                     fullWidth
                                     type="text"
-                                    name="nombreGrupo"
-                                    required
-                                    disabled={statusClose}
+                                    name="nombreProducto"
                                     variant="filled"
-                                    label="Nombre de Grupo"
+                                    required
+                                    label="Nombre de Producto"
                                     onChange={(event) => {
                                         handleChange(event);
-                                        handleChangeNameGroup(event);
+                                        handleChangeNombreProducto(event);
                                     }}
                                     onBlur={handleBlur}
-                                    value={values.nombreGrupo}
-                                    error={Boolean(errors.nombreGrupo && touched.nombreGrupo)}
-                                    helperText={Boolean(errors.nombreGrupo && touched.nombreGrupo) && errors.nombreGrupo}
+                                    value={values.nombreProducto}
+                                    error={Boolean(errors.nombreProducto && touched.nombreProducto)}
+                                    helperText={Boolean(errors.nombreProducto && touched.nombreProducto) && errors.nombreProducto}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    id="numeroGrupo"
+                                    id="precioProducto"
                                     fullWidth
                                     type="text"
-                                    name="numeroGrupo"
+                                    name="precioProducto"
                                     variant="filled"
                                     required
-                                    label="Numero de Grupo"
+                                    label="Precio Unitario (S/.)"
                                     onChange={(event) => {
                                         handleChange(event);
-                                        handleChangeNumberGroup(event);
+                                        handleChangePrecioProducto(event);
                                     }}
                                     onBlur={handleBlur}
-                                    value={values.numeroGrupo}
-                                    error={Boolean(errors.numeroGrupo && touched.numeroGrupo)}
-                                    helperText={Boolean(errors.numeroGrupo && touched.numeroGrupo) && errors.numeroGrupo}
+                                    value={values.precioProducto}
+                                    error={Boolean(errors.precioProducto && touched.precioProducto)}
+                                    helperText={Boolean(errors.precioProducto && touched.precioProducto) && errors.precioProducto}
                                 />
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="cantidadProducto"
+                                    fullWidth
+                                    type="text"
+                                    name="cantidadProducto"
+                                    variant="filled"
+                                    required
+                                    label="Cantidad de Producto"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangeCantidadProducto(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.cantidadProducto}
+                                    error={Boolean(errors.cantidadProducto && touched.cantidadProducto)}
+                                    helperText={Boolean(errors.cantidadProducto && touched.cantidadProducto) && errors.cantidadProducto}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    id="cantidadMinProducto"
+                                    fullWidth
+                                    type="text"
+                                    name="cantidadMinProducto"
+                                    variant="filled"
+                                    required
+                                    label="CantidadMinima"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangeCantidadMinProducto(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.cantidadMinProducto}
+                                    error={Boolean(errors.cantidadMinProducto && touched.cantidadMinProducto)}
+                                    helperText={
+                                        Boolean(errors.cantidadMinProducto && touched.cantidadMinProducto) && errors.cantidadMinProducto
+                                    }
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="unidadProducto"
+                                    fullWidth
+                                    type="text"
+                                    name="unidadProducto"
+                                    required
+                                    variant="filled"
+                                    label="Unidad (kg, lts, u)"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangeUnidadProducto(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.unidadProducto}
+                                    error={Boolean(errors.unidadProducto && touched.unidadProducto)}
+                                    helperText={Boolean(errors.unidadProducto && touched.unidadProducto) && errors.unidadProducto}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    {/* <Grid item xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12} sm={6}>
                                 <Autocomplete
@@ -196,7 +265,7 @@ const TabsRingGroup = ({ handleBlur, handleChange, touched, values, errors, stat
                                 </Box>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Grid>
         </Grid>

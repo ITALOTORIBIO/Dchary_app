@@ -9,7 +9,7 @@ export const getRingGroup = (rows) => {
 export const filterRingGroup = (rows, query) => {
     return async (dispatch) => {
         if (query.length !== 0) {
-            const result = rows.filter((item) => item.num_group.toString().includes(query));
+            const result = rows.filter((item) => item.estado_prod.toString().includes(query));
             await dispatch(FILTER_RING_GROUP(result));
         } else await dispatch(GET_RING_GROUP(rows));
     };

@@ -71,7 +71,7 @@ const PSJICard = ({ isLoading }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <Icon icon="fa:fax" fontSize="2.4rem" />
+                                            <Icon icon="icon-park-solid:down-two" fontSize="2.4rem" />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -80,7 +80,7 @@ const PSJICard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            0 / 1
+                                            120
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -92,7 +92,7 @@ const PSJICard = ({ isLoading }) => {
                                         fontWeight: 500
                                     }}
                                 >
-                                    PSJI Devices
+                                    Cantidad de Salida de Productos
                                 </Typography>
                             </Grid>
                         </Grid>

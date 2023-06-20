@@ -67,7 +67,7 @@ const MainLayout = () => {
     const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
 
     const { opened } = useSelector((state) => state.toogle);
-    // const { token } = useSelector((state) => state.auth);
+    const { token } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const handleLeftDrawerToggle = () => {
@@ -75,13 +75,13 @@ const MainLayout = () => {
     };
 
     useEffect(() => {
-        // dispatch(checkingUserLogin());
+        dispatch(checkingUserLogin());
         dispatch(setMenu(!matchDownMd));
     }, [matchDownMd, dispatch]);
 
-    // const isToken = useMemo(() => (token === null ? true : false), [token]);
+    const isToken = useMemo(() => (token === null ? true : false), [token]);
 
-    // if (isToken) return <Navigate to="/auth/login" />;
+    if (isToken) return <Navigate to="/auth/login" />;
 
     return (
         <Box sx={{ display: 'flex' }}>

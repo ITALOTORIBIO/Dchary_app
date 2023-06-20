@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // APIs para vista de Black List
 export const callToBlackList = async () => {
-    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/lista`;
+    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}`;
 
     return await axios({
         method: 'get',
@@ -22,7 +22,7 @@ export const callToBlackList = async () => {
 };
 
 export const callToBlackListItem = async (data) => {
-    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/registro/`;
+    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/`;
     return await axios({
         method: 'post',
         url: URL,
@@ -42,7 +42,7 @@ export const callToBlackListItem = async (data) => {
 };
 
 export const callToElementBlackList = async (number) => {
-    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/lista/${number}/`;
+    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/${number}/`;
 
     return await axios({
         method: 'get',
@@ -61,7 +61,7 @@ export const callToElementBlackList = async (number) => {
 };
 
 export const callToEditBlackListItem = async (number, data) => {
-    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/lista/${number}/`;
+    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/${number}/`;
     return await axios({
         method: 'put',
         url: URL,
@@ -81,7 +81,7 @@ export const callToEditBlackListItem = async (number, data) => {
 };
 
 export const callToDeleteBlackListItem = async (number) => {
-    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/eliminar/${number}/`;
+    const URL = `${BASE_PATH}/${BLACKLIST_URL_API}/${number}/`;
     return await axios({
         method: 'delete',
         url: URL

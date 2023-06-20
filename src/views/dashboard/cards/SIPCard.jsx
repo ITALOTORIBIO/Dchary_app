@@ -77,7 +77,7 @@ const SIPCard = ({ isLoading }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <Icon icon="fa:fax" fontSize="2.4rem" />
+                                            <Icon icon="icon-park-solid:up-two" fontSize="2.4rem" />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -86,7 +86,7 @@ const SIPCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            0 / 1
+                                            2634.00
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -98,7 +98,7 @@ const SIPCard = ({ isLoading }) => {
                                         fontWeight: 500
                                     }}
                                 >
-                                    SIP Devices
+                                    Valor de Ingreso de Productos (S/.)
                                 </Typography>
                             </Grid>
                         </Grid>

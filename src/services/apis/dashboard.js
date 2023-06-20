@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // APIs para impresión de data en dashboard
 export const callToSystemResources = async () => {
-    const URL = `${BASE_PATH}/${DASHBOARD_URL_API}/system_resources/`;
+    const URL = `http://127.0.0.1:8000/dashboard/listar`;
 
     return await axios({
         method: 'get',
@@ -22,7 +22,7 @@ export const callToSystemResources = async () => {
 };
 
 export const callToHardDrives = async () => {
-    const URL = `${BASE_PATH}/${DASHBOARD_URL_API}/hard_drives/`;
+    const URL = `http://127.0.0.1:8000/dashboard/listar`;
 
     return await axios({
         method: 'get',
@@ -41,7 +41,7 @@ export const callToHardDrives = async () => {
 };
 
 export const callToServiceStatus = async () => {
-    const URL = `${BASE_PATH}/${DASHBOARD_URL_API}/service_status/`;
+    const URL = `http://127.0.0.1:8000/dashboard/listar`;
 
     return await axios({
         method: 'get',

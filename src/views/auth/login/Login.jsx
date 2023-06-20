@@ -1,6 +1,6 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Avatar, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+// import { useTheme } from '@mui/material/styles';
+import { Grid } from '@mui/material';
 
 // project imports
 import AuthWrapper from './AuthWrapper';
@@ -14,13 +14,13 @@ import { checkingUserLogin } from 'store/auth';
 import imageDCHary from '../../../assets/images/logo4.png';
 
 const Login = () => {
-    const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+    // const theme = useTheme();
+    // const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const { token } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(checkingUserLogin());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(checkingUserLogin());
+    }, [dispatch]);
 
     const isToken = useMemo(() => (token === null ? false : true), [token]);
 

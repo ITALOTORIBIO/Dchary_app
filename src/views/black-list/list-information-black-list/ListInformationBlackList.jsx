@@ -73,27 +73,27 @@ const StateSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusV
 
 const columns = [
     {
-        id: 'type_call',
-        label: 'Tipo',
+        id: 'id',
+        label: 'ID',
         type: 'text',
         align: 'center'
     },
     {
-        id: 'num_tlf',
-        label: 'Número',
+        id: 'nombre',
+        label: 'Nombre',
         type: 'text',
         align: 'center'
     },
     {
-        id: 'description',
-        label: 'Descripción',
+        id: 'correo',
+        label: 'Correo',
         type: 'text',
         align: 'center'
     },
     {
-        id: 'status',
-        label: 'Estado',
-        type: 'button',
+        id: 'rol',
+        label: 'Rol',
+        type: 'text',
         align: 'center'
     },
     {
@@ -151,12 +151,12 @@ const ListInformationBlackList = ({ rows }) => {
         else dispatch(getBlackList([]));
     };
 
-    const handleChangeStatus = async (num_tlf, value) => {
+    const handleChangeStatus = async (id, value) => {
         const data = {
-            num_tlf: num_tlf,
+            id: id,
             status: !value
         };
-        const result = await callToEditBlackListItem(num_tlf, data);
+        const result = await callToEditBlackListItem(id, data);
         if (result.isCreated) {
             console.log(result);
             getDataBlackList();
@@ -203,7 +203,7 @@ const ListInformationBlackList = ({ rows }) => {
                                         hover
                                         role="checkbox"
                                         tabIndex={-1}
-                                        key={`${row.num_tlf} - ${row.type_call}`}
+                                        key={`${row.id} - ${row.rol}`}
                                         sx={{ backgroundColor: index % 2 === 0 ? 'rgba(224, 224, 224, 0.2)' : null }}
                                     >
                                         {columns.map((column) => {
@@ -219,7 +219,7 @@ const ListInformationBlackList = ({ rows }) => {
                                                     {column.id === 'editRow' ? (
                                                         <IconButton
                                                             onClick={() => {
-                                                                getElementFromBlackList(row.num_tlf);
+                                                                getElementFromBlackList(row.id);
                                                                 handleShowEditBlackListModal();
                                                             }}
                                                         >
@@ -228,7 +228,7 @@ const ListInformationBlackList = ({ rows }) => {
                                                     ) : column.id === 'deleteRow' ? (
                                                         <IconButton
                                                             onClick={() => {
-                                                                getElementFromBlackList(row.num_tlf);
+                                                                getElementFromBlackList(row.id);
                                                                 handleShowDeleteConfirmationModal();
                                                             }}
                                                         >

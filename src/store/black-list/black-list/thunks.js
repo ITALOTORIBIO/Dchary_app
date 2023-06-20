@@ -3,15 +3,18 @@ import * as BlackList from './blackListSlice';
 export const setBlackList = (blackList) => {
     return (dispatch) => dispatch(BlackList.SET_BLACK_LIST(blackList));
 };
-export const setTipo = (tipo) => {
-    return (dispatch) => dispatch(BlackList.SET_TIPO(tipo));
+export const setNombre = (nombre) => {
+    return (dispatch) => dispatch(BlackList.SET_NOMBRE(nombre));
 };
-export const setNumero = (numero) => {
-    return (dispatch) => dispatch(BlackList.SET_NUMERO(numero));
+export const setCorreo = (correo) => {
+    return (dispatch) => dispatch(BlackList.SET_CORREO(correo));
 };
-export const setDescripcion = (descripcion) => {
-    return (dispatch) => dispatch(BlackList.SET_DESCRIPCION(descripcion));
+export const setRol = (rol) => {
+    return (dispatch) => dispatch(BlackList.SET_ROL(rol));
 };
-export const setEstado = (estado) => {
-    return (dispatch) => dispatch(BlackList.SET_ESTADO(estado));
+export const setUsername = (username) => {
+    return (dispatch) => dispatch(BlackList.SET_USERNAME(username));
+};
+export const setPassword = (password) => {
+    return (dispatch) => dispatch(BlackList.SET_PASSWORD(password));
 };

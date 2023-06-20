@@ -14,7 +14,7 @@ import { modalOpenRingGroup } from 'store/modal';
 import { modalOpenPreviewImportExcelRingGroup } from 'store/modal';
 import PreviewImportExcelRingGroupModal from './preview-import-excel-ring-group-modal/PreviewImportExcelRingGroupModal';
 import { filterRingGroup, getRingGroup } from 'store/filters';
-import { setNombreGrupo, setNumeroGrupo, setSelectAnexo } from 'store/ring-group';
+import { setNombreProducto, setCantidadMinProducto, setPrecioProducto, setCantidadProducto, setUnidadProducto } from 'store/ring-group';
 import { useCallback } from 'react';
 import { callToRingGroupList } from 'services/apis';
 
@@ -79,7 +79,7 @@ const RingGroup = () => {
     const [dataImportExcelRingGroup, setDataImportExcelRingGroup] = useState({});
     const { openModalPreviewImportExcelRingGroup, openBackdropPreviewImportExcelRingGroup, openSnackbarPreviewImportExcelRingGroup } =
         useSelector((state) => state.modalPreviewImportExcelRingGroup);
-    const [numGroup, setNumGroup] = useState('');
+    const [nomProd, setNomProd] = useState('');
     const [statusClose, setStatusClose] = useState(true);
     const dispatch = useDispatch();
 
@@ -89,19 +89,21 @@ const RingGroup = () => {
     };
 
     useEffect(() => {
-        dispatch(setNombreGrupo(''));
-        dispatch(setNumeroGrupo(''));
-        dispatch(setSelectAnexo(''));
+        dispatch(setNombreProducto(''));
+        dispatch(setPrecioProducto(''));
+        dispatch(setCantidadMinProducto(''));
+        dispatch(setCantidadProducto(''));
+        dispatch(setUnidadProducto(''));
     }, [open]);
 
-    const handleChangeNumGroup = (event) => setNumGroup(event.target.value);
+    const handleChangenomProd = (event) => setNomProd(event.target.value);
 
     const handleClickSearchRingGroup = (event) => {
-        dispatch(filterRingGroup(listRingGroup, numGroup));
+        dispatch(filterRingGroup(listRingGroup, nomProd));
     };
 
     const handleClickCleanUp = () => {
-        setNumGroup('');
+        setNomProd('');
         dispatch(getRingGroup(listRingGroup));
     };
 
@@ -123,26 +125,28 @@ const RingGroup = () => {
 
     const handleExportToPDF = useCallback(() => {
         const docPDF = new jsPDF();
-        docPDF.text('Lista RingGroup', 80, 20);
+        docPDF.text('Lista de productos', 80, 20);
         docPDF.autoTable({
             columns: [
-                { header: 'Nombre de Grupo', dataKey: 'name_group' },
-                { header: 'Número de Grupo', dataKey: 'num_group' },
-                { header: 'Anexos', dataKey: 'annex' },
-                { header: 'Cantidad de anexos', dataKey: 'cant_annex' }
+                { header: 'Nombre de Producto', dataKey: 'nom_prod' },
+                { header: 'Cantidad en Stock', dataKey: 'cant_prod' },
+                { header: 'Unidad', dataKey: 'unidad_prod' },
+                { header: 'Cantidad Ingresada', dataKey: 'cant_ing_prod' },
+                { header: 'Cantidad Saliente', dataKey: 'cant_sal_prod' },
+                { header: 'Valor (S/.)', dataKey: 'valor_total_prod' }
             ],
             body: filteredRingGroup,
             margin: { top: 30 }
         });
-        docPDF.save('Lista-RingGroup.pdf');
+        docPDF.save('Lista-Inventario.pdf');
         setAnchorElExport(null);
     }, [filteredRingGroup]);
 
     const handleExportToExcel = useCallback(() => {
         const workbook = XLSX.utils.book_new();
         const worksheet = XLSX.utils.json_to_sheet(filteredRingGroup);
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Ring Group');
-        XLSX.writeFile(workbook, 'Lista-RingGroup.xlsx');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Inventario');
+        XLSX.writeFile(workbook, 'Lista-Inventario.xlsx');
         setAnchorElExport(null);
     }, [filteredRingGroup]);
 
@@ -212,12 +216,12 @@ const RingGroup = () => {
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12}>
                                 <Grid container>
-                                    <Typography variant="h4">Lista Ring Groups</Typography>
+                                    <Typography variant="h4">Inventario</Typography>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container alignItems="center" justifyContent="space-between">
-                                    <Grid item>
+                                    {/* {<Grid item>
                                         <Button
                                             sx={{
                                                 textTransform: 'uppercase',
@@ -228,12 +232,12 @@ const RingGroup = () => {
                                             endIcon={<Add />}
                                             onClick={handleShowAddRingGroupModal}
                                         >
-                                            Añadir Ring Group
+                                            Nuevo Producto
                                         </Button>
-                                    </Grid>
+                                    </Grid>} */}
                                     <Grid item>
                                         <Grid container spacing={gridSpacing}>
-                                            <Grid item>
+                                            {/* <Grid item>
                                                 <Button
                                                     id="import-data-button"
                                                     aria-controls={openImportMenu ? 'import-data-menu' : undefined}
@@ -294,7 +298,7 @@ const RingGroup = () => {
                                                         </Grid>
                                                     </Grid>
                                                 </StyledMenu>
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item>
                                                 <Button
                                                     id="export-data-button"
@@ -311,7 +315,7 @@ const RingGroup = () => {
                                                     variant="outlined"
                                                     endIcon={!openExportMenu ? <KeyboardDoubleArrowDown /> : <KeyboardDoubleArrowUp />}
                                                 >
-                                                    Exportar Ring Group
+                                                    Generar Reporte Inventario
                                                 </Button>
                                                 <StyledMenu
                                                     id="export-data-menu"
@@ -335,7 +339,7 @@ const RingGroup = () => {
                                                                 }}
                                                                 endIcon={<RiFileExcel2Line />}
                                                             >
-                                                                Exportar Excel
+                                                                Reporte Excel
                                                             </Button>
                                                         </Grid>
                                                         <Grid item xs={12}>
@@ -350,7 +354,7 @@ const RingGroup = () => {
                                                                 }}
                                                                 endIcon={<BsFileEarmarkPdfFill />}
                                                             >
-                                                                Exportar PDF
+                                                                Reporte PDF
                                                             </Button>
                                                         </Grid>
                                                     </Grid>
@@ -368,12 +372,12 @@ const RingGroup = () => {
                                                 <Box width={385} maxWidth="100%">
                                                     <TextField
                                                         fullWidth
-                                                        label="Número de grupo"
-                                                        name="numGroup"
-                                                        value={numGroup}
+                                                        label="Ingrese 'OK' - 'Warn' - 'Danger'"
+                                                        name="nomProd"
+                                                        value={nomProd}
                                                         type="search"
                                                         variant="standard"
-                                                        onChange={handleChangeNumGroup}
+                                                        onChange={handleChangenomProd}
                                                     />
                                                 </Box>
                                             </Grid>

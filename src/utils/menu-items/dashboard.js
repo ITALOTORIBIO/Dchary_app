@@ -1,7 +1,7 @@
 // assets
 import {
     IconDashboard,
-    IconUser,
+    IconUsers,
     IconFileMusic,
     IconReceiptOff,
     IconBrandBackbone,
@@ -10,13 +10,15 @@ import {
     IconBrandZoom,
     IconHeartRateMonitor,
     IconReport,
-    IconMailbox
+    IconMailbox,
+    IconClipboardText,
+    IconCheese
 } from '@tabler/icons';
 
 // constant
 const icons = {
     IconDashboard,
-    IconUser,
+    IconUsers,
     IconFileMusic,
     IconReceiptOff,
     IconBrandBackbone,
@@ -25,7 +27,9 @@ const icons = {
     IconBrandZoom,
     IconHeartRateMonitor,
     IconReport,
-    IconMailbox
+    IconMailbox,
+    IconClipboardText,
+    IconCheese
 };
 
 const dashboard = {
@@ -42,59 +46,58 @@ const dashboard = {
             breadcrumbs: true
         },
         {
-            id: 'user',
-            title: 'Perfil',
-            type: 'item',
-            url: '/user',
-            icon: icons.IconUser,
-            breadcrumbs: true
-        },
-        {
             id: 'black-list',
             title: 'Usuarios',
             type: 'item',
             url: '/black-list',
-            icon: icons.IconReceiptOff,
+            icon: icons.IconUsers,
             breadcrumbs: true
         },
         {
             id: 'ring-group',
-            title: 'Ingresar Producto',
+            title: 'Inventario',
             type: 'item',
             url: '/ring-group',
-            icon: icons.IconFriends,
+            icon: icons.IconClipboardText,
             breadcrumbs: true
         },
         {
             id: 'conferences',
-            title: 'Salida de Producto',
+            title: 'Productos',
             type: 'item',
             url: '/conferences',
-            icon: icons.IconBrandZoom,
+            icon: icons.IconCheese,
             breadcrumbs: true
-        },
-        {
-            id: 'annex',
-            title: 'Reportes',
-            type: 'collapse',
-            icon: icons.IconBrandBackbone,
-            children: [
-                {
-                    id: 'sip',
-                    title: 'Visualizar Reporte',
-                    type: 'item',
-                    url: '/annex/sip',
-                    breadcrumbs: true
-                },
-                {
-                    id: 'pjsip',
-                    title: 'Generar Reporte',
-                    type: 'item',
-                    url: '/annex/pjsip',
-                    breadcrumbs: true
-                }
-            ]
         }
+        // {
+        //     id: 'user',
+        //     title: '',
+        //     type: 'item',
+        //     url: '/user',
+        //     icon: icons.IconUser,
+        //     breadcrumbs: true
+        // },
+        // {
+        //     id: 'annex',
+        //     title: 'Reportes',
+        //     type: 'collapse',
+        //     icon: icons.IconBrandBackbone,
+        //     children: [
+        //         {
+        //             id: 'sip',
+        //             title: 'Visualizar Reporte',
+        //             type: 'item',
+        //             url: '/annex/sip',
+        //             breadcrumbs: true
+        //         },
+        //         {
+        //             id: 'pjsip',
+        //             title: 'Generar Reporte',
+        //             type: 'item',
+        //             url: '/annex/pjsip',
+        //             breadcrumbs: true
+        //         }
+        //     ]
     ]
 };
 

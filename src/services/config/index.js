@@ -11,8 +11,8 @@ export const USER_URL_API = 'usuario';
 
 export const ANNEX_URL_API = 'anexo';
 
-export const BLACKLIST_URL_API = 'black_list';
-export const RING_GROUP_URL_API = 'ring_groupp';
+export const BLACKLIST_URL_API = 'api/usuario';
+export const RING_GROUP_URL_API = 'producto';
 export const CONFERENCES_URL_API = 'conferencia';
 
 export const BASE_PATH = `http://${HOST_API}:${PORT_API}`;

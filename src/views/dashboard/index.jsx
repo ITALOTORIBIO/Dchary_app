@@ -25,28 +25,27 @@ const Dashboard = () => {
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item lg={3} md={6} sm={6} xs={12}>
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
                         <PSJICard isLoading={isLoading} />
                     </Grid>
-                    <Grid item lg={3} md={6} sm={6} xs={12}>
+                    {/* <Grid item lg={3} md={6} sm={6} xs={12}>
                         <SIPCard isLoading={isLoading} />
-                    </Grid>
-                    <Grid item lg={3} md={6} sm={6} xs={12}>
+                    </Grid> */}
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
                         <IAX2Card isLoading={isLoading} />
                     </Grid>
-                    <Grid item lg={3} md={6} sm={6} xs={12}>
+                    {/* <Grid item lg={3} md={6} sm={6} xs={12}>
                         <ActiveCallsCard isLoading={isLoading} />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12} md={8}>
-                        <SystemResourcesCard isLoading={isLoading} />
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
+                        <ActiveCallsCard isLoading={isLoading} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <ProcessesStatusCard isLoading={isLoading} />
-                        <HardDrives isLoading={isLoading} />
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
+                        <SIPCard isLoading={isLoading} />
                     </Grid>
                 </Grid>
             </Grid>

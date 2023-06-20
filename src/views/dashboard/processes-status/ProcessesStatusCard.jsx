@@ -14,7 +14,7 @@ import { callToServiceStatus } from 'services/apis';
 
 import Typical from 'react-typical';
 
-const ProcessesStatusCard = ({ isLoading }) => {
+const ProcessesStatusCard = () => {
     const theme = useTheme();
     const [dataServerStatus, setDataServerStatus] = useState([]);
 
@@ -34,7 +34,7 @@ const ProcessesStatusCard = ({ isLoading }) => {
                     <Grid item xs={12}>
                         <Grid container alignContent="center" justifyContent="space-between">
                             <Grid item>
-                                <Typography variant="h4">Processes Status</Typography>
+                                <Typography variant="h4">Total de Ventas</Typography>
                             </Grid>
                         </Grid>
                     </Grid>

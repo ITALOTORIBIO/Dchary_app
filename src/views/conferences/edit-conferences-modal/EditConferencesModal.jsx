@@ -1,123 +1,139 @@
-import TabsConference from '../tabs-conferences/TabsConference';
-
 import PropTypes from 'prop-types';
 import { useState, forwardRef } from 'react';
-import { Alert, Box, Backdrop, Button, CircularProgress, Dialog, DialogActions, DialogContent, Slide, Snackbar, Tab } from '@mui/material';
+import { Alert, Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, Slide, Snackbar, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
-import { modalOpenRingGroup, backdropOpenRingGroup, snackbarOpenRingGroup } from 'store/modal';
+import { modalOpenRingGroupEdit, backdropOpenRingGroupEdit, snackbarOpenRingGroupEdit } from 'store/modal';
+import { callToRingGroupList, callToEditRingGroupItem } from 'services/apis';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { getRingGroup } from 'store/filters';
-import { callToRingGroupList, callToRingGroupItem } from 'services/apis';
 import { setNombreProducto, setCantidadProducto, setCantidadMinProducto, setPrecioProducto, setUnidadProducto } from 'store/ring-group';
+import { useEffect } from 'react';
+import { getRingGroup } from 'store/filters';
+import TabsConference from '../tabs-conferences/TabsConference';
 
 const schema = Yup.object().shape({
     nombreProducto: Yup.string().required('Nombre de producto obligatorio'),
     precioProducto: Yup.string().required('Precio del producto obligatorio'),
-    cantidadMinProducto: Yup.string().required('Cantidad Minima es requerida'),
+    cantidadProducto: Yup.string().required('Cantidad de producto obligatoria'),
+    cantidadMinProducto: Yup.string().required('Cantidad Mínima es requerida'),
     unidadProducto: Yup.string().required('Unidad de producto obligatoria')
 });
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
-const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRingGroup, openSnackbarRingGroup }) => {
+
+const EditConferencesModal = ({ openModalRingGroupEdit, openBackdropRingGroupEdit, openSnackbarRingGroupEdit, resultItemRingGroup }) => {
     const [value, setValue] = useState('1');
     const [snackbar, setSnackbar] = useState({
         message: '',
         severity: 'success',
         color: 'success'
     });
+    const dispatch = useDispatch();
+
     const { nombreProducto, precioProducto, cantidadProducto, cantidadMinProducto, unidadProducto } = useSelector(
         (state) => state.ringGroup
     );
-    const dispatch = useDispatch();
 
     const initialValues = {
-        nombreProducto: nombreProducto,
-        precioProducto: precioProducto,
-        cantidadMinProducto: cantidadMinProducto,
-        unidadProducto: unidadProducto
+        nombreProducto: resultItemRingGroup.nom_prod,
+        precioProducto: resultItemRingGroup.precio_prod,
+        cantidadProducto: resultItemRingGroup.cant_prod,
+        cantidadMinProducto: resultItemRingGroup.cant_min_prod,
+        unidadProducto: resultItemRingGroup.unidad_prod
     };
 
-    const handleChangeTab = (event, newValue) => setValue(newValue);
-    const handleOpenBackdrop = () => dispatch(backdropOpenRingGroup(true));
-    const handleCloseBackdrop = () => dispatch(backdropOpenRingGroup(false));
+    useEffect(() => {
+        dispatch(setNombreProducto(initialValues.nombreProducto));
+        dispatch(setCantidadMinProducto(initialValues.cantidadMinProducto));
+        dispatch(setCantidadProducto(initialValues.cantidadProducto));
+        dispatch(setPrecioProducto(initialValues.precioProducto));
+        dispatch(setUnidadProducto(initialValues.unidadProducto));
+    }, [initialValues.nombreProducto, modalOpenRingGroupEdit]);
 
-    const getDataListRingGroup = async () => {
+    const getDataRingGroup = async () => {
         const result = await callToRingGroupList();
         if (result.ok) dispatch(getRingGroup(result.data));
         else dispatch(getRingGroup([]));
     };
 
     const handleClose = () => {
-        dispatch(setNombreProducto(''));
-        dispatch(setPrecioProducto(''));
-        dispatch(setCantidadMinProducto(''));
-        dispatch(setUnidadProducto(''));
-        dispatch(modalOpenRingGroup(!open));
-        setStatusClose(true);
+        dispatch(setNombreProducto(initialValues.nombreProducto));
+        dispatch(setCantidadMinProducto(initialValues.cantidadMinProducto));
+        dispatch(setCantidadProducto(initialValues.cantidadProducto));
+        dispatch(setPrecioProducto(initialValues.precioProducto));
+        dispatch(setUnidadProducto(initialValues.unidadProducto));
     };
 
+    const handleCloseModal = () => {
+        dispatch(modalOpenRingGroupEdit(!openModalRingGroupEdit));
+        setValue('1');
+    };
+
+    const handleChangeTab = (event, newValue) => setValue(newValue);
+    const handleOpenBackdropEdit = () => dispatch(backdropOpenRingGroupEdit(true));
+    const handleCloseBackdropEdit = () => dispatch(backdropOpenRingGroupEdit(false));
+
     const onSubmit = async () => {
-        handleOpenBackdrop();
-        // const cant_annex = selectAnexo.split(',').length;
+        handleOpenBackdropEdit();
         const data = {
             nom_prod: nombreProducto,
             precio_prod: precioProducto,
+            cant_prod: cantidadProducto,
             cant_min_prod: cantidadMinProducto,
             unidad_prod: unidadProducto
         };
-        const result = await callToRingGroupItem(data);
+        console.log(data);
+        const result = await callToEditRingGroupItem(data.nom_prod, data);
         if (result.isCreated) {
-            console.log(result.data);
-            getDataListRingGroup();
-            handleCloseBackdrop();
-            handleClose();
-            setSnackbar({ message: result.message, severity: 'success', color: 'success' });
+            getDataRingGroup();
+            handleCloseBackdropEdit();
+            handleCloseModal();
+            setSnackbar({ message: 'Registro actualizado correctamente', severity: 'success', color: 'success' });
         } else {
             if (result.status) {
-                setSnackbar({ message: result.message, severity: 'success', color: 'success' });
+                setSnackbar({ message: result.message, severity: 'error', color: 'error' });
             } else {
-                setSnackbar({ message: result.message, severity: 'success', color: 'success' });
+                setSnackbar({ message: result.message, severity: 'error', color: 'error' });
             }
             console.log(result.message);
-            handleCloseBackdrop();
+            handleCloseBackdropEdit();
         }
-        handleOpenSnackbar();
+        handleOpenSnackbarEdit();
         setTimeout(() => {
-            handleCloseSnackbar();
+            handleCloseSnackbarEdit();
         }, 6000);
     };
 
-    const handleOpenSnackbar = () => dispatch(snackbarOpenRingGroup(true));
-    const handleCloseSnackbar = (event, reason) => {
+    const handleOpenSnackbarEdit = () => dispatch(snackbarOpenRingGroupEdit(true));
+    const handleCloseSnackbarEdit = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(snackbarOpenRingGroup(false));
+        dispatch(snackbarOpenRingGroupEdit(false));
     };
 
     return (
         <div>
             <Dialog
-                open={open}
+                open={openModalRingGroupEdit}
                 fullWidth
                 maxWidth="md"
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={handleClose}
-                aria-describedby="modal-add-ring-group"
+                onClose={handleCloseModal}
+                aria-describedby="modal-edit-ring-group"
             >
-                <Formik initialValues={initialValues} validationSchema={schema} onSubmit={onSubmit}>
+                <Formik enableReinitialize initialValues={initialValues} validationSchema={schema} onSubmit={onSubmit}>
                     {({ errors, handleBlur, handleSubmit, handleChange, touched, values, isValid, resetForm, setFieldValue }) => (
                         <form noValidate onSubmit={handleSubmit}>
-                            <DialogContent>
+                            <DialogContent sx={{ position: 'relative' }}>
                                 <TabContext value={value}>
                                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                         <TabList onChange={handleChangeTab}>
-                                            <Tab label="Nuevo Producto" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
+                                            <Tab label="Editar Producto" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
                                         </TabList>
                                     </Box>
                                     <TabPanel value="1">
@@ -127,13 +143,13 @@ const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRi
                                             touched={touched}
                                             values={values}
                                             errors={errors}
-                                            statusClose={statusClose}
+                                            statusClose={openModalRingGroupEdit}
                                             setFieldValue={setFieldValue}
                                         />
                                     </TabPanel>
                                 </TabContext>
                             </DialogContent>
-                            <DialogActions>
+                            <DialogActions sx={{ position: 'relative' }}>
                                 <Box marginRight="0.5rem" marginBottom="1rem" gap={4}>
                                     <Button
                                         variant="contained"
@@ -141,6 +157,7 @@ const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRi
                                         color="error"
                                         onClick={() => {
                                             handleClose();
+                                            handleCloseModal();
                                             resetForm();
                                         }}
                                     >
@@ -148,8 +165,8 @@ const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRi
                                     </Button>
                                 </Box>
                                 <Box marginRight="2.5rem" marginBottom="1rem" gap={4}>
-                                    <Button variant="contained" type="submit" disabled={!isValid} sx={{ textTransform: 'uppercase' }}>
-                                        Crear Producto
+                                    <Button variant="contained" disabled={!isValid} type="submit" sx={{ textTransform: 'uppercase' }}>
+                                        Editar Producto
                                     </Button>
                                 </Box>
                             </DialogActions>
@@ -157,17 +174,17 @@ const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRi
                     )}
                 </Formik>
             </Dialog>
-            {/* <Backdrop sx={{ color: '#fff', zIndex: 12000, position: '' }} open={openBackdropRingGroup}>
+            <Backdrop sx={{ color: '#fff', zIndex: 12000, position: '' }} open={openBackdropRingGroupEdit}>
                 <CircularProgress color="inherit" />
             </Backdrop>
             <Snackbar
-                open={openSnackbarRingGroup}
-                autoHideDuration={30}
+                open={openSnackbarRingGroupEdit}
+                autoHideDuration={6000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                onClose={handleCloseSnackbar}
+                onClose={handleCloseSnackbarEdit}
             >
                 <Alert
-                    onClose={handleCloseSnackbar}
+                    onClose={handleCloseSnackbarEdit}
                     severity={snackbar.severity}
                     color={snackbar.color}
                     variant="filled"
@@ -175,15 +192,16 @@ const AddConferencesModal = ({ open, statusClose, setStatusClose, openBackdropRi
                 >
                     {snackbar.message}
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </div>
     );
 };
 
-AddConferencesModal.propTypes = {
-    open: PropTypes.bool,
-    statusClose: PropTypes.any,
-    setStatusClose: PropTypes.any
+EditConferencesModal.propTypes = {
+    openModalRingGroupEdit: PropTypes.bool,
+    openBackdropRingGroupEdit: PropTypes.bool,
+    openSnackbarRingGroupEdit: PropTypes.bool,
+    resultItemRingGroup: PropTypes.object
 };
 
-export default AddConferencesModal;
+export default EditConferencesModal;

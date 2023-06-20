@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, forwardRef } from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, Slide, Tab } from '@mui/material';
+import { Alert, Box, Backdrop, Button, CircularProgress, Dialog, DialogActions, DialogContent, Slide, Snackbar, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalOpenRingGroup, backdropOpenRingGroup, snackbarOpenRingGroup } from 'store/modal';
@@ -9,18 +9,19 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { getRingGroup } from 'store/filters';
 import { callToRingGroupList, callToRingGroupItem } from 'services/apis';
-import { setNombreGrupo, setNumeroGrupo, setSelectAnexo } from 'store/ring-group';
+import { setNombreProducto, setCantidadProducto, setCantidadMinProducto, setPrecioProducto, setUnidadProducto } from 'store/ring-group';
+
+const schema = Yup.object().shape({
+    nombreProducto: Yup.string().required('Nombre de producto obligatorio'),
+    precioProducto: Yup.string().required('Precio del producto obligatorio'),
+    cantidadProducto: Yup.string().required('Cantidad de producto obligatoria'),
+    cantidadMinProducto: Yup.string().required('Cantidad Minima es requerida'),
+    unidadProducto: Yup.string().required('Unidad de producto obligatoria')
+});
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
-
-const schema = Yup.object().shape({
-    nombreGrupo: Yup.string().required('Nombre de grupo obligatorio'),
-    numeroGrupo: Yup.string().required('Número de grupo obligatorio'),
-    selectAnexo: Yup.string().required('Anexo obligatorio')
-});
-
 const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRingGroup, openSnackbarRingGroup }) => {
     const [value, setValue] = useState('1');
     const [snackbar, setSnackbar] = useState({
@@ -28,13 +29,17 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
         severity: 'success',
         color: 'success'
     });
-    const { nombreGrupo, numeroGrupo, selectAnexo } = useSelector((state) => state.ringGroup);
+    const { nombreProducto, precioProducto, cantidadProducto, cantidadMinProducto, unidadProducto } = useSelector(
+        (state) => state.ringGroup
+    );
     const dispatch = useDispatch();
 
     const initialValues = {
-        nombreGrupo: nombreGrupo,
-        numeroGrupo: numeroGrupo,
-        selectAnexo: selectAnexo
+        nombreProducto: nombreProducto,
+        precioProducto: precioProducto,
+        cantidadProducto: cantidadProducto,
+        cantidadMinProducto: cantidadMinProducto,
+        unidadProducto: unidadProducto
     };
 
     const handleChangeTab = (event, newValue) => setValue(newValue);
@@ -47,14 +52,25 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
         else dispatch(getRingGroup([]));
     };
 
+    const handleClose = () => {
+        dispatch(setNombreProducto(''));
+        dispatch(setPrecioProducto(''));
+        dispatch(setCantidadProducto(''));
+        dispatch(setCantidadMinProducto(''));
+        dispatch(setUnidadProducto(''));
+        dispatch(modalOpenRingGroup(!open));
+        setStatusClose(true);
+    };
+
     const onSubmit = async () => {
         handleOpenBackdrop();
-        const cant_annex = selectAnexo.split(',').length;
+        // const cant_annex = selectAnexo.split(',').length;
         const data = {
-            name_group: nombreGrupo,
-            num_group: numeroGrupo,
-            annex: selectAnexo,
-            cant_annex: cant_annex
+            nom_prod: nombreProducto,
+            precio_prod: precioProducto,
+            cant_prod: cantidadProducto,
+            cant_min_prod: cantidadMinProducto,
+            unidad_prod: unidadProducto
         };
         const result = await callToRingGroupItem(data);
         if (result.isCreated) {
@@ -86,14 +102,6 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
         dispatch(snackbarOpenRingGroup(false));
     };
 
-    const handleClose = () => {
-        dispatch(setNombreGrupo(''));
-        dispatch(setNumeroGrupo(''));
-        dispatch(setSelectAnexo(''));
-        dispatch(modalOpenRingGroup(!open));
-        setStatusClose(true);
-    };
-
     return (
         <div>
             <Dialog
@@ -111,8 +119,8 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
                             <DialogContent>
                                 <TabContext value={value}>
                                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                        <TabList onChange={handleChange}>
-                                            <Tab label="Nuevo Ring Group" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
+                                        <TabList onChange={handleChangeTab}>
+                                            <Tab label="Nuevo Producto" sx={{ textTransform: 'uppercase', width: '20%' }} value="1" />
                                         </TabList>
                                     </Box>
                                     <TabPanel value="1">
@@ -144,7 +152,7 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
                                 </Box>
                                 <Box marginRight="2.5rem" marginBottom="1rem" gap={4}>
                                     <Button variant="contained" type="submit" disabled={!isValid} sx={{ textTransform: 'uppercase' }}>
-                                        Crear Ring Group
+                                        Crear Producto
                                     </Button>
                                 </Box>
                             </DialogActions>
@@ -152,6 +160,25 @@ const AddRingGroupModal = ({ open, statusClose, setStatusClose, openBackdropRing
                     )}
                 </Formik>
             </Dialog>
+            {/* <Backdrop sx={{ color: '#fff', zIndex: 12000, position: '' }} open={openBackdropRingGroup}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <Snackbar
+                open={openSnackbarRingGroup}
+                autoHideDuration={30}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                onClose={handleCloseSnackbar}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity={snackbar.severity}
+                    color={snackbar.color}
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar> */}
         </div>
     );
 };

@@ -2,7 +2,7 @@ import { BASE_PATH, RING_GROUP_URL_API } from '../config';
 import axios from 'axios';
 
 export const callToRingGroupList = async () => {
-    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/lista`;
+    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/listar`;
 
     return await axios({
         method: 'get',
@@ -21,7 +21,7 @@ export const callToRingGroupList = async () => {
 };
 
 export const callToRingGroupItem = async (data) => {
-    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/registro/`;
+    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/actualizar`;
     return await axios({
         method: 'post',
         url: URL,
@@ -41,7 +41,7 @@ export const callToRingGroupItem = async (data) => {
 };
 
 export const callToElementRingGroup = async (name) => {
-    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/lista/${name}/`;
+    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/modificar/${name}/`;
 
     return await axios({
         method: 'get',
@@ -60,7 +60,7 @@ export const callToElementRingGroup = async (name) => {
 };
 
 export const callToEditRingGroupItem = async (name, data) => {
-    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/lista/${name}/`;
+    const URL = `${BASE_PATH}/${RING_GROUP_URL_API}/modificar/${name}/`;
     return await axios({
         method: 'put',
         url: URL,

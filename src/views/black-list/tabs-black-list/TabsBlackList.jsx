@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import { FormControlLabel, Grid, MenuItem, TextField, Typography, Switch } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setDescripcion, setEstado, setNumero, setTipo } from 'store/black-list';
+import { setNombre, setCorreo, setRol, setUsername, setPassword } from 'store/black-list';
 import { gridSpacing } from 'store/constant';
 
 const TabsBlackList = ({ handleBlur, handleChange, touched, values, errors, openModalBlackListEdit }) => {
     const dispatch = useDispatch();
 
-    const handleChangeTipo = (event) => dispatch(setTipo(event.target.value));
-    const handleChangeNumero = (event) => dispatch(setNumero(event.target.value));
-    const handleChangeDescripcion = (event) => dispatch(setDescripcion(event.target.value));
-    const handleChangeEstado = (event) => dispatch(setEstado(event.target.checked));
+    const handleChangeNombre = (event) => dispatch(setNombre(event.target.value));
+    const handleChangeCorreo = (event) => dispatch(setCorreo(event.target.value));
+    const handleChangeRol = (event) => dispatch(setRol(event.target.value));
+    const handleChangeUsername = (event) => dispatch(setUsername(event.target.value));
+    const handleChangePassword = (event) => dispatch(setPassword(event.target.value));
 
     return (
         <Grid container>
@@ -18,44 +19,43 @@ const TabsBlackList = ({ handleBlur, handleChange, touched, values, errors, open
                 <Grid container spacing={gridSpacing} direction="row">
                     <Grid item xs={12}>
                         <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    id="nombre"
+                                    fullWidth
+                                    type="text"
+                                    name="nombre"
+                                    variant="filled"
+                                    required
+                                    label="Nombre Completo"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangeNombre(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.nombre}
+                                    error={Boolean(errors.nombre && touched.nombre)}
+                                    helperText={Boolean(errors.nombre && touched.nombre) && errors.nombre}
+                                />
+                            </Grid>
                             <Grid item xs={12} md={6}>
                                 <TextField
-                                    id="tipo"
+                                    id="rol"
                                     variant="filled"
                                     select
                                     fullWidth
                                     required
-                                    label="Tipo de llamada"
-                                    name="tipo"
-                                    value={values.tipo}
+                                    label="Tipo de Rol"
+                                    name="rol"
+                                    value={values.rol}
                                     onChange={(event) => {
                                         handleChange(event);
-                                        handleChangeTipo(event);
+                                        handleChangeRol(event);
                                     }}
                                 >
-                                    <MenuItem value="Entrantes">Entrantes</MenuItem>
-                                    <MenuItem value="Salientes">Salientes</MenuItem>
+                                    <MenuItem value="Administrador">Administrador</MenuItem>
+                                    <MenuItem value="Usuario">Usuario</MenuItem>
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="numero"
-                                    fullWidth
-                                    type="text"
-                                    name="numero"
-                                    disabled={openModalBlackListEdit}
-                                    variant="filled"
-                                    required
-                                    label="Número Telefónico"
-                                    onChange={(event) => {
-                                        handleChange(event);
-                                        handleChangeNumero(event);
-                                    }}
-                                    onBlur={handleBlur}
-                                    value={values.numero}
-                                    error={Boolean(errors.numero && touched.numero)}
-                                    helperText={Boolean(errors.numero && touched.numero) && errors.numero}
-                                />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -63,23 +63,24 @@ const TabsBlackList = ({ handleBlur, handleChange, touched, values, errors, open
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    id="descripcion"
+                                    id="correo"
                                     fullWidth
                                     type="text"
-                                    name="descripcion"
+                                    name="correo"
                                     variant="filled"
-                                    label="Descripción"
+                                    required
+                                    label="Correo electrónico"
                                     onChange={(event) => {
                                         handleChange(event);
-                                        handleChangeDescripcion(event);
+                                        handleChangeCorreo(event);
                                     }}
                                     onBlur={handleBlur}
-                                    value={values.descripcion}
-                                    error={Boolean(errors.descripcion && touched.descripcion)}
-                                    helperText={Boolean(errors.descripcion && touched.descripcion) && errors.descripcion}
+                                    value={values.correo}
+                                    error={Boolean(errors.correo && touched.correo)}
+                                    helperText={Boolean(errors.correo && touched.correo) && errors.correo}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            {/* <Grid item xs={12} sm={6}>
                                 <Grid container spacing={gridSpacing} alignItems="center" justifyContent="center" direction="row">
                                     <Grid item xs={6}>
                                         <Typography fontWeight="bold">Estado</Typography>
@@ -98,7 +99,49 @@ const TabsBlackList = ({ handleBlur, handleChange, touched, values, errors, open
                                             name="estado"
                                         />
                                     </Grid>
-                                </Grid>
+                                </Grid> 
+                            </Grid>*/}
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    id="username"
+                                    fullWidth
+                                    type="text"
+                                    name="username"
+                                    variant="filled"
+                                    required
+                                    label="Nombre de Usuario"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangeUsername(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.username}
+                                    error={Boolean(errors.username && touched.username)}
+                                    helperText={Boolean(errors.username && touched.username) && errors.username}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    id="password"
+                                    fullWidth
+                                    type="password"
+                                    name="password"
+                                    variant="filled"
+                                    required
+                                    label="Contraseña"
+                                    onChange={(event) => {
+                                        handleChange(event);
+                                        handleChangePassword(event);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                    error={Boolean(errors.password && touched.password)}
+                                    helperText={Boolean(errors.password && touched.password) && errors.password}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>

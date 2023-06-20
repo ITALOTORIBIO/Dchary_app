@@ -15,56 +15,63 @@ import {
     Typography
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Delete, AddBox, IndeterminateCheckBox } from '@mui/icons-material';
 import { callToRingGroupList, callToElementRingGroup } from 'services/apis';
 import { modalOpenRingGroupDelete } from 'store/modal';
 import { modalOpenRingGroupEdit } from 'store/modal';
-import DeleteRingGroupModal from '../delete-ring-group-modal/DeleteRingGroupModal';
-import EditRingGroupModal from '../edit-ring-group-modal/EditRingGroupModal';
+import SalidaProdModal from '../delete-ring-group-modal/SalidaProdModal';
+import IngresarProdModal from '../edit-ring-group-modal/IngresarProdModal';
 import { getRingGroup } from 'store/filters';
 
 const columns = [
     {
-        id: 'name_group',
-        label: 'Nombre de Grupo',
+        id: 'nom_prod',
+        label: 'Nombre del producto',
         type: 'text',
         align: 'center',
         minWidth: 150
     },
     {
-        id: 'num_group',
-        label: 'Número de Grupo',
+        id: 'cant_prod',
+        label: 'Cantidad',
         type: 'text',
         align: 'center',
         minWidth: 150
     },
     {
-        id: 'annex',
-        label: 'Anexos',
+        id: 'unidad_prod',
+        label: 'Unidad',
         type: 'text',
         align: 'center',
         minWidth: 150
     },
     {
-        id: 'cant_annex',
-        label: 'Cantidad Anexos',
+        id: 'valor_total_prod',
+        label: 'Valor Total (S/.)',
         type: 'text',
         align: 'center',
         minWidth: 150
     },
+    // {
+    //     id: 'editRow',
+    //     label: 'Editar',
+    //     type: 'button',
+    //     align: 'center',
+    //     minWidth: 120
+    // },
     {
-        id: 'editRow',
-        label: 'Editar',
+        id: 'aggrRow',
+        label: 'Ingreso',
         type: 'button',
         align: 'center',
-        minWidth: 120
+        minWidth: 100
     },
     {
         id: 'deleteRow',
-        label: 'Eliminar',
+        label: 'Salida',
         type: 'button',
         align: 'center',
-        minWidth: 120
+        minWidth: 100
     }
 ];
 
@@ -96,11 +103,11 @@ const ListInformationRingGroup = ({ rows }) => {
         setResultItemRingGroup(response.data);
     };
 
-    const handleShowEditRingGroupModal = () => {
+    const handleShowIngresarProdModal = () => {
         dispatch(modalOpenRingGroupEdit(!openModalRingGroupEdit));
     };
 
-    const handleShowDeleteConfirmationModal = () => {
+    const handleShowSalidaProdModal = () => {
         dispatch(modalOpenRingGroupDelete(!openModalRingGroupDelete));
     };
 
@@ -148,8 +155,15 @@ const ListInformationRingGroup = ({ rows }) => {
                                         hover
                                         role="checkbox"
                                         tabIndex={-1}
-                                        key={row.name_group}
-                                        sx={{ backgroundColor: index % 2 === 0 ? 'rgba(224, 224, 224, 0.2)' : null }}
+                                        key={row.nom_prod}
+                                        sx={{
+                                            backgroundColor:
+                                                row.estado_prod === 'Warning'
+                                                    ? 'rgba(255, 247, 0, 0.3)'
+                                                    : row.estado_prod === 'Danger'
+                                                    ? 'rgba(232, 0, 4, 0.3)'
+                                                    : 'rgba(77, 207, 45, 0.4)'
+                                        }}
                                     >
                                         {columns.map((column) => {
                                             const value = row[column.id];
@@ -164,20 +178,29 @@ const ListInformationRingGroup = ({ rows }) => {
                                                     {column.id === 'editRow' ? (
                                                         <IconButton
                                                             onClick={() => {
-                                                                getElementFromRingGroup(row.name_group);
-                                                                handleShowEditRingGroupModal();
+                                                                getElementFromRingGroup(row.nom_prod);
+                                                                handleShowIngresarProdModal();
                                                             }}
                                                         >
                                                             <Edit />
                                                         </IconButton>
+                                                    ) : column.id === 'aggrRow' ? (
+                                                        <IconButton
+                                                            onClick={() => {
+                                                                getElementFromRingGroup(row.nom_prod);
+                                                                handleShowIngresarProdModal();
+                                                            }}
+                                                        >
+                                                            <AddBox />
+                                                        </IconButton>
                                                     ) : column.id === 'deleteRow' ? (
                                                         <IconButton
                                                             onClick={() => {
-                                                                getElementFromRingGroup(row.name_group);
-                                                                handleShowDeleteConfirmationModal();
+                                                                getElementFromRingGroup(row.nom_prod);
+                                                                handleShowSalidaProdModal();
                                                             }}
                                                         >
-                                                            <Delete />
+                                                            <IndeterminateCheckBox />
                                                         </IconButton>
                                                     ) : (
                                                         value
@@ -191,16 +214,16 @@ const ListInformationRingGroup = ({ rows }) => {
                         )}
                     </TableBody>
                 </Table>
-                {resultItemRingGroup.name_group != undefined ? (
-                    <EditRingGroupModal
+                {resultItemRingGroup.nom_prod != undefined ? (
+                    <IngresarProdModal
                         openModalRingGroupEdit={openModalRingGroupEdit}
                         openBackdropRingGroupEdit={openBackdropRingGroupEdit}
                         openSnackbarRingGroupEdit={openSnackbarRingGroupEdit}
                         resultItemRingGroup={resultItemRingGroup}
                     />
                 ) : null}
-                {resultItemRingGroup.name_group != undefined ? (
-                    <DeleteRingGroupModal
+                {resultItemRingGroup.nom_prod != undefined ? (
+                    <SalidaProdModal
                         openModalRingGroupDelete={openModalRingGroupDelete}
                         openBackdropRingGroupDelete={openBackdropRingGroupDelete}
                         openSnackbarRingGroupDelete={openSnackbarRingGroupDelete}

@@ -147,13 +147,13 @@ const NotificationSection = () => {
                                             <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
                                                 <Grid item>
                                                     <Stack direction="row" spacing={2}>
-                                                        <Typography variant="subtitle1">All Notification</Typography>
+                                                        <Typography variant="subtitle1">All Notifications</Typography>
                                                         <Chip
                                                             size="small"
-                                                            label="01"
+                                                            label="02"
                                                             sx={{
                                                                 color: theme.palette.background.default,
-                                                                bgcolor: theme.palette.warning.dark
+                                                                bgcolor: theme.palette.primary.dark
                                                             }}
                                                         />
                                                     </Stack>
@@ -169,7 +169,7 @@ const NotificationSection = () => {
                                             <PerfectScrollbar
                                                 style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}
                                             >
-                                                <Grid container direction="column" spacing={2}>
+                                                {/* <Grid container direction="column" spacing={2}>
                                                     <Grid item xs={12}>
                                                         <Box sx={{ px: 2, pt: 0.25 }}>
                                                             <TextField
@@ -193,17 +193,17 @@ const NotificationSection = () => {
                                                     <Grid item xs={12} p={0}>
                                                         <Divider sx={{ my: 0 }} />
                                                     </Grid>
-                                                </Grid>
+                                                </Grid> */}
                                                 <NotificationList />
                                             </PerfectScrollbar>
                                         </Grid>
                                     </Grid>
-                                    <Divider />
+                                    {/* <Divider />
                                     <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
                                         <Button size="small" disableElevation>
                                             View All
                                         </Button>
-                                    </CardActions>
+                                    </CardActions> */}
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>

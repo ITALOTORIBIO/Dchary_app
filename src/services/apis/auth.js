@@ -1,9 +1,9 @@
-import { BASE_PATH, USER_URL_API } from '../config';
+import { BASE_PATH } from '../config';
 import axios from 'axios';
 
 // APIs para logueo de usuario
 export const callToLogin = async (username, password) => {
-    const URL = `${BASE_PATH}/${USER_URL_API}/login/`;
+    const URL = `${BASE_PATH}`;
 
     return await axios({
         method: 'post',
@@ -40,10 +40,10 @@ export const callToLogin = async (username, password) => {
 };
 
 export const callToLogout = async (token) => {
-    const URL = `${BASE_PATH}/${USER_URL_API}/logout/?token=${token}`;
+    const URL = `${BASE_PATH}/logout/?token=${token}`;
 
     return await axios({
-        method: 'post',
+        method: 'GET',
         url: URL
     })
         .then((res) => {

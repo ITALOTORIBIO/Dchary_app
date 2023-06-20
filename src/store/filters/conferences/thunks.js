@@ -9,7 +9,7 @@ export const getConferences = (rows) => {
 export const filterConferences = (rows, query) => {
     return async (dispatch) => {
         if (query.length !== 0) {
-            const result = rows.filter((item) => item.num_meet.toString().includes(query));
+            const result = rows.filter((item) => item.nom_prod.toString().includes(query));
             await dispatch(FILTER_CONFERENCES(result));
         } else await dispatch(GET_CONFERENCES(rows));
     };

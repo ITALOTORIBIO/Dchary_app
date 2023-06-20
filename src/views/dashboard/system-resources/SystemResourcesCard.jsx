@@ -12,7 +12,7 @@ import { gridSpacing } from 'store/constant';
 import ServerInformation from './ServerInformation';
 import { callToSystemResources } from 'services/apis';
 
-const SystemResourcesCard = ({ isLoading }) => {
+const SystemResourcesCard = () => {
     const [dataServer, setDataServer] = useState({});
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const SystemResourcesCard = ({ isLoading }) => {
                 <Grid item xs={12}>
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
-                            <Typography variant="h4">System Resources</Typography>
+                            <Typography variant="h4">Productos más usados en cocina</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
